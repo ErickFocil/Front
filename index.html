@@ -66,8 +66,8 @@
                           <tr>
                             <th>id</th>
                             <th>Nombre</th>
-                            <th>Teléfono</th>
-                            <th>Tipo teléfono</th>
+                            <th>Existencias</th>
+                            <th>Precio</th>
                             <th>Nota</th>
                             <th>Modificar</th>
                             <th>Eliminar</th>
@@ -306,7 +306,7 @@
 
     function listData(){
          
-        $.post("listData.php", function(data) {
+        $.get("../apibackend/listproducts", function(data) {
 
           var options = $('#dataTable');
           options.empty();
@@ -314,20 +314,18 @@
           if (data.status == "success") {
               var tamano            = datos.length;
               for(var i = 0; i < tamano; i++){
-                var id = datos[i].id;
-                var nombre = datos[i].nombre;
-                var telefono = datos[i].telefono;
-                var tipo_telefono = datos[i].tipo_telefono;
-                var nota = datos[i].nota;
+                var idproducto = datos[i].idproducto;
+                var nombre_producto = datos[i].nombre_producto;
+                var cantidad_existencia = datos[i].cantidad_existencia;
+                var precio = datos[i].precio;
 
                 options.append('<tr>'+
-                        '<td>'+id+'</td>'+
-                        '<td>'+nombre+'</td>'+
-                      '<td>'+telefono+'</td>'+
-                      '<td>'+tipo_telefono+'</td>'+
-                      '<td>'+nota+'</td>'+
-                      '<td><button type="button" data-toggle="modal" onClick="ShowUpdateContacto(this)" data-idcontacto="'+id+'" data-nombre="'+nombre+'" data-telefono="'+telefono+'" data-nota="'+nota+'" data-tipotelefono="'+tipo_telefono+'"data-target="#ShowUpdateContacto" class="btn btn-warning"><i class="fas fa-pen"></i></button></td>'+
-                      '<td><button type="button" data-toggle="modal" onClick="ShowDeleteContacto(this)" data-idcontacto="'+id+'" data-target="#ShowDeleteContacto" class="btn btn-danger"><i class="fas fa-trash"></i></button></td>'+
+                        '<td>'+idproducto+'</td>'+
+                        '<td>'+nombre_producto+'</td>'+
+                      '<td>'+cantidad_existencia+'</td>'+
+                      '<td>'+precio+'</td>'+
+                      '<td><button type="button" data-toggle="modal" onClick="ShowUpdateContacto(this)" data-idcontacto="'+idproducto+'" data-nombre="'+nombre_producto+' data-target="#ShowUpdateContacto" class="btn btn-warning"><i class="fas fa-pen"></i></button></td>'+
+                      '<td><button type="button" data-toggle="modal" onClick="ShowDeleteContacto(this)" data-idcontacto="'+idproducto+'" data-target="#ShowDeleteContacto" class="btn btn-danger"><i class="fas fa-trash"></i></button></td>'+
                       '</tr>');
               }
           }else{
